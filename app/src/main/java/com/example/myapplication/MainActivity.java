@@ -76,14 +76,12 @@ public class MainActivity extends AppCompatActivity {
 
                 if (poche.isChecked()) {
 
-
-
                     if(Cl > 0 && Cl < 3) {
-                        PU = (30 / Qté) + (0.2 * Cl * Cc) + 0.2;
+                        PU = (30 / Qté) + ((0.2 * Cl) * Cc) + 0.2;
                     }
 
                     if(Cl > 2 && Cl < 5) {
-                        PU = (60 / Qté) + (0.2 * Cl * Cc) + 0.2;
+                        PU = (60 / Qté) + ((0.2 * Cl) * Cc) + 0.2;
                     }
 
                 }
@@ -91,20 +89,20 @@ public class MainActivity extends AppCompatActivity {
                 if(dos.isChecked()){
 
                     if(Cl > 0 && Cl < 3) {
-                        PU = (40 / Qté) + (0.3 * Cl * Cc) + 0.2;
+                        PU = (40 / Qté) + ((0.3 * Cl) * Cc) + 0.2;
                     }
 
                     if(Cl > 2 && Cl < 5) {
-                        PU = (80 / Qté) + (0.3 * Cl * Cc) + 0.2;
+                        PU = (80 / Qté) + ((0.3 * Cl) * Cc) + 0.2;
                     }
-                    }
+                }
 
-                    PT = (PU * Qté);
-                    if(PT != 0.0){
-                        ViewPU.setText("PU: "+ new DecimalFormat("##.###").format(PU) + " DT");
-                        ViewPT.setText("PT: "+ new DecimalFormat("##.###").format(PT) + " DT");
-                    }
-                } ;
+                PT = (PU * Qté);
+                if(PT != 0.0){
+                    ViewPU.setText("PU: "+ new DecimalFormat("##.###").format(PU) + " DT");
+                    ViewPT.setText("PT: "+ new DecimalFormat("##.###").format(PT) + " DT");
+                }
+            } ;
 
         });
 
