@@ -12,6 +12,8 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DecimalFormat;
+
 public class MainActivity extends AppCompatActivity {
 
     private EditText EditButtonPoche;
@@ -35,63 +37,73 @@ public class MainActivity extends AppCompatActivity {
         ViewPT = findViewById(R.id.ViewPT);
         ButtonJoin = findViewById(R.id.ButtonJoin);
 
+
+
         ButtonJoin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String Quantité=EditQté.getText().toString();
-                String Couleurs=EditCl.getText().toString();
-                String Couches=EditCc.getText().toString();
+                RadioButton poche = (RadioButton) findViewById(R.id.ButtonPoche);
+                RadioButton dos = (RadioButton) findViewById(R.id.ButtonDos);
 
-                RadioButton Poche = (RadioButton) findViewById(R.id.ButtonPoche);
+                if (EditQté.getText().toString().length()==0) {
+                    EditQté.setText("100");
+                }
+                if (EditCl.getText().toString().length() == 0) {
+                    EditCl.setText("1");
+                }
+                if (EditCc.getText().toString().length() == 0) {
+                    EditCc.setText("1");
+                }
 
-                if (Poche.isChecked()) {
+                int Qté = Integer.parseInt(EditQté.getText().toString());
+                int Cl = Integer.parseInt(EditCl.getText().toString());
+                int Cc = Integer.parseInt(EditCc.getText().toString());
+                double PT = 0.000;
+                double PU = 0.000;
 
-                    if (EditQté.getText().toString().length()==0) {
-                        EditQté.setText("100");
-                    }
-                    if (EditCl.getText().toString().length() == 0) {
-                        EditCl.setText("1");
-                    }
-                    if (EditCc.getText().toString().length() == 0) {
-                        EditCc.setText("1");
-                    }
+                if (EditQté.getText().toString().length() == 0 &&
+                        EditCl.getText().toString().length() == 0 &&
+                        EditCc.getText().toString().length() == 0
+                ){
+                    ButtonJoin.setEnabled(false);
+                }else {
+                    ButtonJoin.setEnabled(true);
+                }
 
-                    int Qté = Integer.parseInt(EditQté.getText().toString());
-                    int Cl = Integer.parseInt(EditCl.getText().toString());
-                    int Cc = Integer.parseInt(EditCc.getText().toString());
 
-                        int PU = (40000 / Qté) + (300 * Cl * Cc) + 200;
-                        int PT = (PU * Qté);
 
-                        ViewPU.setText(String.valueOf(PU));
-                        ViewPT.setText(String.valueOf(PT));
 
-                    }
 
-                 else{
+                if (poche.isChecked()) {
 
-                        if (EditQté.getText().toString().length() == 0) {
-                            EditQté.setText("100");
-                        }
-                        if (EditCl.getText().toString().length() == 0) {
-                            EditCl.setText("1");
-                        }
-                        if (EditCc.getText().toString().length() == 0) {
-                            EditCc.setText("1");
-                        }
 
-                        int Qté = Integer.parseInt(EditQté.getText().toString());
-                        int Cl = Integer.parseInt(EditCl.getText().toString());
-                        int Cc = Integer.parseInt(EditCc.getText().toString());
 
-                        int PU = (30000 / Qté) + (200 * Cl * Cc) + 200;
-                        int PT = (PU * Qté);
-
-                        ViewPU.setText(String.valueOf(PU));
-                        ViewPT.setText(String.valueOf(PT));
+                    if(Cl > 0 && Cl < 3) {
+                        PU = (30 / Qté) + (0.2 * Cl * Cc) + 0.2;
                     }
 
+                    if(Cl > 2 && Cl < 5) {
+                        PU = (60 / Qté) + (0.2 * Cl * Cc) + 0.2;
+                    }
 
+                }
+
+                if(dos.isChecked()){
+
+                    if(Cl > 0 && Cl < 3) {
+                        PU = (40 / Qté) + (0.3 * Cl * Cc) + 0.2;
+                    }
+
+                    if(Cl > 2 && Cl < 5) {
+                        PU = (80 / Qté) + (0.3 * Cl * Cc) + 0.2;
+                    }
+                    }
+
+                    PT = (PU * Qté);
+                    if(PT != 0.0){
+                        ViewPU.setText("PU: "+ new DecimalFormat("##.###").format(PU) + " DT");
+                        ViewPT.setText("PT: "+ new DecimalFormat("##.###").format(PT) + " DT");
+                    }
                 } ;
 
         });

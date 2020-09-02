@@ -25,6 +25,7 @@
             android:layout_height="50dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="30dp"
+            android:checked="true"
             android:inputType="none"
             android:text="Poche"
             android:textColor="#000"
