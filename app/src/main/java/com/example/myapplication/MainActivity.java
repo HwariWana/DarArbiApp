@@ -12,7 +12,10 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
+
+import static java.math.BigDecimal.*;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -58,8 +61,7 @@ public class MainActivity extends AppCompatActivity {
                 int Qté = Integer.parseInt(EditQté.getText().toString());
                 int Cl = Integer.parseInt(EditCl.getText().toString());
                 int Cc = Integer.parseInt(EditCc.getText().toString());
-                double PT = 0.000;
-                double PU = 0.000;
+                BigDecimal PU = null;
 
                 if (EditQté.getText().toString().length() == 0 &&
                         EditCl.getText().toString().length() == 0 &&
@@ -77,11 +79,11 @@ public class MainActivity extends AppCompatActivity {
                 if (poche.isChecked()) {
 
                     if(Cl > 0 && Cl < 3) {
-                        PU = (30 / Qté) + ((0.2 * Cl) * Cc) + 0.2;
+                        PU = valueOf(30).divide(valueOf(Qté)).add(valueOf(0.2).multiply(valueOf(Cl)).multiply(valueOf(Cc))).add(valueOf(0.2));
                     }
 
                     if(Cl > 2 && Cl < 5) {
-                        PU = (60 / Qté) + ((0.2 * Cl) * Cc) + 0.2;
+                        PU = valueOf(60).divide(valueOf(Qté)).add(valueOf(0.2).multiply(valueOf(Cl)).multiply(valueOf(Cc))).add(valueOf(0.2));
                     }
 
                 }
@@ -89,16 +91,17 @@ public class MainActivity extends AppCompatActivity {
                 if(dos.isChecked()){
 
                     if(Cl > 0 && Cl < 3) {
-                        PU = (40 / Qté) + ((0.3 * Cl) * Cc) + 0.2;
+                        PU = valueOf(40).divide(valueOf(Qté)).add(valueOf(0.3).multiply(valueOf(Cl)).multiply(valueOf(Cc))).add(valueOf(0.2));
                     }
 
                     if(Cl > 2 && Cl < 5) {
-                        PU = (80 / Qté) + ((0.3 * Cl) * Cc) + 0.2;
+                        PU = valueOf(80).divide(valueOf(Qté)).add(valueOf(0.3).multiply(valueOf(Cl)).multiply(valueOf(Cc))).add(valueOf(0.2));
                     }
                 }
 
-                PT = (PU * Qté);
-                if(PT != 0.0){
+                BigDecimal PT = PU.multiply(valueOf(Qté));
+
+                if(!PT.equals(0)){
                     ViewPU.setText("PU: "+ new DecimalFormat("##.###").format(PU) + " DT");
                     ViewPT.setText("PT: "+ new DecimalFormat("##.###").format(PT) + " DT");
                 }
